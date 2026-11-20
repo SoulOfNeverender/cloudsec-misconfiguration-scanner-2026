@@ -1,0 +1,40 @@
+{
+  "BucketName": "flaws_level4_snapshot_dump",
+  "ARN": "arn:aws:s3:::flaws_level4_snapshot_dump",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "arn:aws:iam::111122223333:role/admin",
+        "Action": [
+          "s3:*"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws_level4_snapshot_dump",
+          "arn:aws:s3:::flaws_level4_snapshot_dump/*"
+        ]
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": false,
+    "Rules": []
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": null
+  },
+  "VersioningConfiguration": {
+    "Status": "Suspended"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Disabled"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "BucketName": "flaws_level2_auth_users_read",
+  "ARN": "arn:aws:s3:::flaws_level2_auth_users_read",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws_level2_auth_users_read",
+          "arn:aws:s3:::flaws_level2_auth_users_read/*"
+        ]
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": false,
+    "Rules": []
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": null
+  },
+  "VersioningConfiguration": {
+    "Status": "Suspended"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Disabled"
+  }
+}

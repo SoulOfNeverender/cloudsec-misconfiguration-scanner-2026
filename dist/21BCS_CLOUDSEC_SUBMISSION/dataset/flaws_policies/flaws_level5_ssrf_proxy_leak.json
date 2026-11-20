@@ -1,0 +1,41 @@
+{
+  "BucketName": "flaws_level5_ssrf_proxy_leak",
+  "ARN": "arn:aws:s3:::flaws_level5_ssrf_proxy_leak",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "arn:aws:iam::111122223333:role/proxy",
+        "Action": [
+          "s3:GetObject",
+          "s3:ListBucket"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws_level5_ssrf_proxy_leak",
+          "arn:aws:s3:::flaws_level5_ssrf_proxy_leak/*"
+        ]
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": false,
+    "Rules": []
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": null
+  },
+  "VersioningConfiguration": {
+    "Status": "Suspended"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Disabled"
+  }
+}

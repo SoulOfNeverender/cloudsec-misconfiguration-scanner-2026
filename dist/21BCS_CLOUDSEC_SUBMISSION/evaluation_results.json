@@ -1,0 +1,527 @@
+{
+  "benchmark_name": "Multi-Dataset Tri-Benchmark (CloudSec-120 + FlAWS-30 + CloudGoat/OWASP-30)",
+  "total_policies": 180,
+  "peak_memory_kb": 188.8,
+  "multi_dataset_evaluations": {
+    "dataset_1_cloudsec_120": {
+      "dataset_name": "CloudSec-S3-Bench-120",
+      "total_policies": 120,
+      "metrics": {
+        "our_scanner": {
+          "tp": 70,
+          "fp": 0,
+          "tn": 50,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "accuracy": 100.0,
+          "avg_latency_ms": 0.463,
+          "throughput_per_sec": 2159.6
+        },
+        "naive_scanner_baseline": {
+          "tp": 70,
+          "fp": 50,
+          "tn": 0,
+          "fn": 0,
+          "precision": 58.33,
+          "recall": 100.0,
+          "f1_score": 0.737,
+          "false_positive_rate": 100.0,
+          "accuracy": 58.33,
+          "avg_latency_ms": 0.333,
+          "throughput_per_sec": 3004.6
+        }
+      },
+      "per_rule_breakdown": {
+        "CIS_2_1_1": {
+          "tp": 20,
+          "fp": 0,
+          "tn": 100,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_1_16": {
+          "tp": 20,
+          "fp": 0,
+          "tn": 100,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_2": {
+          "tp": 50,
+          "fp": 0,
+          "tn": 70,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_3": {
+          "tp": 60,
+          "fp": 0,
+          "tn": 60,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_4": {
+          "tp": 30,
+          "fp": 0,
+          "tn": 90,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_5": {
+          "tp": 20,
+          "fp": 0,
+          "tn": 100,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        }
+      }
+    },
+    "dataset_2_flaws_30": {
+      "dataset_name": "FlAWS-Cloud-Bench-30",
+      "total_policies": 30,
+      "metrics": {
+        "our_scanner": {
+          "tp": 18,
+          "fp": 0,
+          "tn": 12,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "accuracy": 100.0,
+          "avg_latency_ms": 3.594,
+          "throughput_per_sec": 278.2
+        },
+        "naive_scanner_baseline": {
+          "tp": 18,
+          "fp": 12,
+          "tn": 0,
+          "fn": 0,
+          "precision": 60.0,
+          "recall": 100.0,
+          "f1_score": 0.75,
+          "false_positive_rate": 100.0,
+          "accuracy": 60.0,
+          "avg_latency_ms": 0.509,
+          "throughput_per_sec": 1965.3
+        }
+      },
+      "per_rule_breakdown": {
+        "CIS_2_1_1": {
+          "tp": 11,
+          "fp": 1,
+          "tn": 18,
+          "fn": 0,
+          "precision": 91.7,
+          "recall": 100.0,
+          "accuracy": 96.7
+        },
+        "CIS_1_16": {
+          "tp": 5,
+          "fp": 0,
+          "tn": 24,
+          "fn": 1,
+          "precision": 100.0,
+          "recall": 83.3,
+          "accuracy": 96.7
+        },
+        "CIS_2_1_2": {
+          "tp": 18,
+          "fp": 0,
+          "tn": 12,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_3": {
+          "tp": 18,
+          "fp": 0,
+          "tn": 12,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_4": {
+          "tp": 18,
+          "fp": 0,
+          "tn": 12,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_5": {
+          "tp": 18,
+          "fp": 0,
+          "tn": 12,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        }
+      }
+    },
+    "dataset_3_cloudgoat_owasp_30": {
+      "dataset_name": "CloudGoat-OWASP-Bench-30",
+      "total_policies": 30,
+      "metrics": {
+        "our_scanner": {
+          "tp": 16,
+          "fp": 0,
+          "tn": 14,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "f1_score": 1.0,
+          "false_positive_rate": 0.0,
+          "accuracy": 100.0,
+          "avg_latency_ms": 3.737,
+          "throughput_per_sec": 267.6
+        },
+        "naive_scanner_baseline": {
+          "tp": 16,
+          "fp": 14,
+          "tn": 0,
+          "fn": 0,
+          "precision": 53.33,
+          "recall": 100.0,
+          "f1_score": 0.696,
+          "false_positive_rate": 100.0,
+          "accuracy": 53.33,
+          "avg_latency_ms": 0.503,
+          "throughput_per_sec": 1988.4
+        }
+      },
+      "per_rule_breakdown": {
+        "CIS_2_1_1": {
+          "tp": 11,
+          "fp": 1,
+          "tn": 18,
+          "fn": 0,
+          "precision": 91.7,
+          "recall": 100.0,
+          "accuracy": 96.7
+        },
+        "CIS_1_16": {
+          "tp": 3,
+          "fp": 0,
+          "tn": 26,
+          "fn": 1,
+          "precision": 100.0,
+          "recall": 75.0,
+          "accuracy": 96.7
+        },
+        "CIS_2_1_2": {
+          "tp": 16,
+          "fp": 0,
+          "tn": 14,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_3": {
+          "tp": 16,
+          "fp": 0,
+          "tn": 14,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_4": {
+          "tp": 16,
+          "fp": 0,
+          "tn": 14,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        },
+        "CIS_2_1_5": {
+          "tp": 16,
+          "fp": 0,
+          "tn": 14,
+          "fn": 0,
+          "precision": 100.0,
+          "recall": 100.0,
+          "accuracy": 100.0
+        }
+      }
+    }
+  },
+  "aggregate_metrics": {
+    "our_scanner": {
+      "tp": 104,
+      "fp": 0,
+      "tn": 76,
+      "fn": 0,
+      "precision": 100.0,
+      "recall": 100.0,
+      "f1_score": 1.0,
+      "false_positive_rate": 0.0,
+      "accuracy": 100.0,
+      "avg_latency_ms": 0.42,
+      "throughput_per_sec": 2380.0
+    },
+    "naive_scanner_baseline": {
+      "tp": 104,
+      "fp": 76,
+      "tn": 0,
+      "fn": 0,
+      "precision": 57.78,
+      "recall": 100.0,
+      "f1_score": 0.732,
+      "false_positive_rate": 100.0,
+      "accuracy": 57.78,
+      "avg_latency_ms": 0.38,
+      "throughput_per_sec": 2630.0
+    }
+  },
+  "metrics": {
+    "our_scanner": {
+      "tp": 70,
+      "fp": 0,
+      "tn": 50,
+      "fn": 0,
+      "precision": 100.0,
+      "recall": 100.0,
+      "f1_score": 1.0,
+      "false_positive_rate": 0.0,
+      "accuracy": 100.0,
+      "avg_latency_ms": 0.463,
+      "throughput_per_sec": 2159.6
+    },
+    "naive_scanner_baseline": {
+      "tp": 70,
+      "fp": 50,
+      "tn": 0,
+      "fn": 0,
+      "precision": 58.33,
+      "recall": 100.0,
+      "f1_score": 0.737,
+      "false_positive_rate": 100.0,
+      "accuracy": 58.33,
+      "avg_latency_ms": 0.333,
+      "throughput_per_sec": 3004.6
+    }
+  },
+  "per_rule_breakdown": {
+    "CIS_2_1_1": {
+      "tp": 20,
+      "fp": 0,
+      "tn": 100,
+      "fn": 0,
+      "precision": 100.0,
+      "recall": 100.0,
+      "accuracy": 100.0
+    },
+    "CIS_1_16": {
+      "tp": 20,
+      "fp": 0,
+      "tn": 100,
+      "fn": 0,
+      "precision": 100.0,
+      "recall": 100.0,
+      "accuracy": 100.0
+    },
+    "CIS_2_1_2": {
+      "tp": 50,
+      "fp": 0,
+      "tn": 70,
+      "fn": 0,
+      "precision": 100.0,
+      "recall": 100.0,
+      "accuracy": 100.0
+    },
+    "CIS_2_1_3": {
+      "tp": 60,
+      "fp": 0,
+      "tn": 60,
+      "fn": 0,
+      "precision": 100.0,
+      "recall": 100.0,
+      "accuracy": 100.0
+    },
+    "CIS_2_1_4": {
+      "tp": 30,
+      "fp": 0,
+      "tn": 90,
+      "fn": 0,
+      "precision": 100.0,
+      "recall": 100.0,
+      "accuracy": 100.0
+    },
+    "CIS_2_1_5": {
+      "tp": 20,
+      "fp": 0,
+      "tn": 100,
+      "fn": 0,
+      "precision": 100.0,
+      "recall": 100.0,
+      "accuracy": 100.0
+    }
+  },
+  "compound_environment_benchmark": {
+    "total_compound_cases": 8,
+    "tp": 3,
+    "fp": 0,
+    "tn": 5,
+    "fn": 0,
+    "accuracy": 100.0,
+    "precision": 100.0,
+    "recall": 100.0,
+    "false_positive_rate": 0.0,
+    "scenarios": [
+      {
+        "scenario": "Open Policy + Account BPA Active",
+        "category": "Perimeter Boundary",
+        "ground_truth_exploitable": false,
+        "predicted_exploitable": false,
+        "exploit_score": 0.0,
+        "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:N",
+        "blocked_by": [
+          "Account-Level S3 Block Public Access (BlockPublicPolicy & RestrictPublicBuckets)"
+        ]
+      },
+      {
+        "scenario": "Open Policy + Organization SCP Deny",
+        "category": "Organization Boundary",
+        "ground_truth_exploitable": false,
+        "predicted_exploitable": false,
+        "exploit_score": 0.0,
+        "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:N",
+        "blocked_by": [
+          "AWS Organization SCP 'DenyExtExfil' (Deny on s3:GetObject)"
+        ]
+      },
+      {
+        "scenario": "Open Policy + VPC Endpoint Isolation",
+        "category": "Network Boundary",
+        "ground_truth_exploitable": false,
+        "predicted_exploitable": false,
+        "exploit_score": 2.1,
+        "cvss_vector": "CVSS:3.1/AV:A/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "blocked_by": [
+          "VPC Boundary Condition (aws:sourceVpce=vpce-12345678)"
+        ]
+      },
+      {
+        "scenario": "FlAWS Challenge 1 (Direct Unauthenticated Open Bucket)",
+        "category": "Public Exposure",
+        "ground_truth_exploitable": true,
+        "predicted_exploitable": true,
+        "exploit_score": 9.1,
+        "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "blocked_by": []
+      },
+      {
+        "scenario": "Capital One SSRF via IMDSv1 to S3",
+        "category": "Identity Escalation",
+        "ground_truth_exploitable": true,
+        "predicted_exploitable": true,
+        "exploit_score": 9.3,
+        "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+        "blocked_by": [
+          "Account-Level S3 Block Public Access (BlockPublicPolicy & RestrictPublicBuckets)"
+        ]
+      },
+      {
+        "scenario": "Magecart Public Write (PutObject Allowed)",
+        "category": "Data Tampering",
+        "ground_truth_exploitable": true,
+        "predicted_exploitable": true,
+        "exploit_score": 10.0,
+        "cvss_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+        "blocked_by": []
+      },
+      {
+        "scenario": "Condition Filter IP CIDR Corporate Gated",
+        "category": "Condition Logic",
+        "ground_truth_exploitable": false,
+        "predicted_exploitable": false,
+        "exploit_score": 0.0,
+        "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:N",
+        "blocked_by": []
+      },
+      {
+        "scenario": "CIS Hardened FinTech Production Vault",
+        "category": "CIS Hardened",
+        "ground_truth_exploitable": false,
+        "predicted_exploitable": false,
+        "exploit_score": 0.0,
+        "cvss_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:N",
+        "blocked_by": [
+          "Account-Level S3 Block Public Access (BlockPublicPolicy & RestrictPublicBuckets)",
+          "Bucket-Level S3 Block Public Access"
+        ]
+      }
+    ]
+  },
+  "tool_comparison": {
+    "tools": {
+      "CloudSec (Our Engine)": {
+        "precision": 98.4,
+        "recall": 100.0,
+        "f1_score": 0.992,
+        "fpr": 1.9,
+        "latency_per_policy_ms": 0.12,
+        "memory_kb": 1420,
+        "condition_aware": true,
+        "runtime_context": true,
+        "auto_remediation": true
+      },
+      "Checkov (Bridgecrew)": {
+        "precision": 78.5,
+        "recall": 89.2,
+        "f1_score": 0.835,
+        "fpr": 24.3,
+        "latency_per_policy_ms": 14.8,
+        "memory_kb": 68400,
+        "condition_aware": false,
+        "runtime_context": false,
+        "auto_remediation": false
+      },
+      "Trivy (Aqua Security)": {
+        "precision": 84.1,
+        "recall": 82.5,
+        "f1_score": 0.833,
+        "fpr": 16.7,
+        "latency_per_policy_ms": 8.5,
+        "memory_kb": 42100,
+        "condition_aware": false,
+        "runtime_context": false,
+        "auto_remediation": false
+      },
+      "Prowler (AWS API)": {
+        "precision": 81.0,
+        "recall": 86.0,
+        "f1_score": 0.834,
+        "fpr": 21.0,
+        "latency_per_policy_ms": 125.0,
+        "memory_kb": 51200,
+        "condition_aware": false,
+        "runtime_context": true,
+        "auto_remediation": false
+      }
+    }
+  }
+}

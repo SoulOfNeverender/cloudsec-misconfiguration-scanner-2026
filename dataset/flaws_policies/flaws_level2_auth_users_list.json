@@ -1,0 +1,40 @@
+{
+  "BucketName": "flaws_level2_auth_users_list",
+  "ARN": "arn:aws:s3:::flaws_level2_auth_users_list",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:ListBucket"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws_level2_auth_users_list",
+          "arn:aws:s3:::flaws_level2_auth_users_list/*"
+        ]
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": false,
+    "Rules": []
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": null
+  },
+  "VersioningConfiguration": {
+    "Status": "Suspended"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Disabled"
+  }
+}

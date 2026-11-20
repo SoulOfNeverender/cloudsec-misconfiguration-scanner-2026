@@ -1,0 +1,40 @@
+{
+  "BucketName": "flaws2_target1_container_escape",
+  "ARN": "arn:aws:s3:::flaws2_target1_container_escape",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "arn:aws:iam::222233334444:role/ecs-task-role",
+        "Action": [
+          "s3:*"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws2_target1_container_escape",
+          "arn:aws:s3:::flaws2_target1_container_escape/*"
+        ]
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": false,
+    "Rules": []
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": null
+  },
+  "VersioningConfiguration": {
+    "Status": "Suspended"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Disabled"
+  }
+}

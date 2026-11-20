@@ -1,0 +1,40 @@
+{
+  "BucketName": "owasp_c3_excessive_wildcard_service_role",
+  "ARN": "arn:aws:s3:::owasp_c3_excessive_wildcard_service_role",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "CloudGoatStatement",
+        "Effect": "Allow",
+        "Principal": "arn:aws:iam::333344445555:role/lambda-exec",
+        "Action": [
+          "s3:*"
+        ],
+        "Resource": [
+          "arn:aws:s3:::owasp_c3_excessive_wildcard_service_role",
+          "arn:aws:s3:::owasp_c3_excessive_wildcard_service_role/*"
+        ]
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": false,
+    "Rules": []
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": null
+  },
+  "VersioningConfiguration": {
+    "Status": "Suspended"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Disabled"
+  }
+}

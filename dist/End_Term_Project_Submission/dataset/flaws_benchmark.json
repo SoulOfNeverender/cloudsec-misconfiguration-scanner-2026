@@ -1,0 +1,324 @@
+{
+  "benchmark_name": "FlAWS-Cloud-Bench-30",
+  "description": "Standardized benchmark suite derived from Scott Piper's public flaws.cloud & flaws2.cloud challenge corpus",
+  "total_policies": 30,
+  "policies": {
+    "flaws_level1_open_bucket.json": {
+      "id": "flaws_level1_open_bucket",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 1: Public s3 bucket with default website hosting",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level1_open_listing.json": {
+      "id": "flaws_level1_open_listing",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 1: Public s3 bucket allowing ListBucket to anonymous",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level1_unencrypted_backup.json": {
+      "id": "flaws_level1_unencrypted_backup",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 1: Exposed database backup files in root of bucket",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level2_auth_users_read.json": {
+      "id": "flaws_level2_auth_users_read",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 2: s3 bucket allows any authenticated AWS account",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level2_auth_users_list.json": {
+      "id": "flaws_level2_auth_users_list",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 2: Listing permitted to any AWS customer credentials",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level3_backup_pipeline.json": {
+      "id": "flaws_level3_backup_pipeline",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 3: Git repo metadata and .git credentials leak",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level3_subtle_get_wildcard.json": {
+      "id": "flaws_level3_subtle_get_wildcard",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 3: Overly permissive s3:Get* on deployment logs",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level4_snapshot_dump.json": {
+      "id": "flaws_level4_snapshot_dump",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 4: Mounted EBS snapshot recovering S3 admin keys",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level4_isolated_snapshots.json": {
+      "id": "flaws_level4_isolated_snapshots",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS.cloud Level 4: Properly isolated snapshot access restricted to corporate VPC",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level5_ssrf_proxy_leak.json": {
+      "id": "flaws_level5_ssrf_proxy_leak",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 5: SSRF on reverse proxy extracts IAM role to dump S3",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level5_ssrf_mitigated_imdsv2.json": {
+      "id": "flaws_level5_ssrf_mitigated_imdsv2",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS.cloud Level 5: IMDSv2 strictly enforced, preventing SSRF credential theft",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level6_security_audit_bypass.json": {
+      "id": "flaws_level6_security_audit_bypass",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS.cloud Level 6: SecurityAudit policy attached alongside wildcard read",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_level6_least_privilege_audit.json": {
+      "id": "flaws_level6_least_privilege_audit",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS.cloud Level 6: Hardened read-only audit policy with CIDR restriction",
+      "category": "public_ctf_flaws"
+    },
+    "flaws2_target1_container_escape.json": {
+      "id": "flaws2_target1_container_escape",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS 2 Target 1: ECS Task role credentials abused to list proprietary files",
+      "category": "public_ctf_flaws"
+    },
+    "flaws2_target1_pinpoint_resource.json": {
+      "id": "flaws2_target1_pinpoint_resource",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS 2 Target 1: Scoped task policy restricted to specific object ARN",
+      "category": "public_ctf_flaws"
+    },
+    "flaws2_target2_vpce_misconfig.json": {
+      "id": "flaws2_target2_vpce_misconfig",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS 2 Target 2: VPC Endpoint policy with missing condition filter",
+      "category": "public_ctf_flaws"
+    },
+    "flaws2_target2_vpce_secured.json": {
+      "id": "flaws2_target2_vpce_secured",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS 2 Target 2: VPC Endpoint strictly enforces SourceVpc constraint",
+      "category": "public_ctf_flaws"
+    },
+    "flaws2_target3_inverted_notaction.json": {
+      "id": "flaws2_target3_inverted_notaction",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS 2 Target 3: Complex NotAction inverted privilege escalation",
+      "category": "public_ctf_flaws"
+    },
+    "flaws2_target3_tls_enforced_vault.json": {
+      "id": "flaws2_target3_tls_enforced_vault",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS 2 Target 3: CIS Level 2 hardened with TLS Deny and KMS CMK",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_20.json": {
+      "id": "flaws_extended_eval_case_20",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS Challenge Corpus: Hardened defense-in-depth policy 20 gated by VPC/CIDR",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_21.json": {
+      "id": "flaws_extended_eval_case_21",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS Challenge Corpus: Edge case 21 allowing unrestricted s3 operations",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_22.json": {
+      "id": "flaws_extended_eval_case_22",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS Challenge Corpus: Hardened defense-in-depth policy 22 gated by VPC/CIDR",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_23.json": {
+      "id": "flaws_extended_eval_case_23",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS Challenge Corpus: Edge case 23 allowing unrestricted s3 operations",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_24.json": {
+      "id": "flaws_extended_eval_case_24",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS Challenge Corpus: Hardened defense-in-depth policy 24 gated by VPC/CIDR",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_25.json": {
+      "id": "flaws_extended_eval_case_25",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS Challenge Corpus: Edge case 25 allowing unrestricted s3 operations",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_26.json": {
+      "id": "flaws_extended_eval_case_26",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS Challenge Corpus: Hardened defense-in-depth policy 26 gated by VPC/CIDR",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_27.json": {
+      "id": "flaws_extended_eval_case_27",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS Challenge Corpus: Edge case 27 allowing unrestricted s3 operations",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_28.json": {
+      "id": "flaws_extended_eval_case_28",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS Challenge Corpus: Hardened defense-in-depth policy 28 gated by VPC/CIDR",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_29.json": {
+      "id": "flaws_extended_eval_case_29",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "flAWS Challenge Corpus: Edge case 29 allowing unrestricted s3 operations",
+      "category": "public_ctf_flaws"
+    },
+    "flaws_extended_eval_case_30.json": {
+      "id": "flaws_extended_eval_case_30",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "flAWS Challenge Corpus: Hardened defense-in-depth policy 30 gated by VPC/CIDR",
+      "category": "public_ctf_flaws"
+    }
+  }
+}

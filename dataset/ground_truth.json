@@ -1,0 +1,1259 @@
+{
+  "benchmark_name": "CloudSec-S3-Bench-120",
+  "description": "Standardized benchmark suite for AWS S3 and IAM policy misconfigurations",
+  "total_policies": 120,
+  "categories": {
+    "clear_vulnerable": {
+      "count": 40,
+      "range": "001-040",
+      "label": "Vulnerable"
+    },
+    "tricky_safe": {
+      "count": 30,
+      "range": "041-070",
+      "label": "Safe (False Positive Traps)"
+    },
+    "tricky_vulnerable": {
+      "count": 30,
+      "range": "071-100",
+      "label": "Vulnerable (False Negative Traps)"
+    },
+    "cis_hardened": {
+      "count": 20,
+      "range": "101-120",
+      "label": "Safe (CIS Baseline)"
+    }
+  },
+  "policies": {
+    "policy_001.json": {
+      "id": "001",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Deep Root Analytics S3 Leak (198M voter records)",
+      "notes": "Demonstrates Deep Root Analytics S3 Leak (198M voter records) misconfiguration pattern."
+    },
+    "policy_002.json": {
+      "id": "002",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Capital One SSRF IAM Exfiltration Pattern",
+      "notes": "Demonstrates Capital One SSRF IAM Exfiltration Pattern misconfiguration pattern."
+    },
+    "policy_003.json": {
+      "id": "003",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Imperva Cloud DB Backup Dump",
+      "notes": "Demonstrates Imperva Cloud DB Backup Dump misconfiguration pattern."
+    },
+    "policy_004.json": {
+      "id": "004",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Alteryx / Experian Demographic S3 Bucket",
+      "notes": "Demonstrates Alteryx / Experian Demographic S3 Bucket misconfiguration pattern."
+    },
+    "policy_005.json": {
+      "id": "005",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Booz Allen Hamilton Unprotected S3 Image Cache",
+      "notes": "Demonstrates Booz Allen Hamilton Unprotected S3 Image Cache misconfiguration pattern."
+    },
+    "policy_006.json": {
+      "id": "006",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Dow Jones Elasticsearch Snapshot Leak",
+      "notes": "Demonstrates Dow Jones Elasticsearch Snapshot Leak misconfiguration pattern."
+    },
+    "policy_007.json": {
+      "id": "007",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Accenture Cloud Asset Backup Exposure",
+      "notes": "Demonstrates Accenture Cloud Asset Backup Exposure misconfiguration pattern."
+    },
+    "policy_008.json": {
+      "id": "008",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "FedEx Customer Record Archive",
+      "notes": "Demonstrates FedEx Customer Record Archive misconfiguration pattern."
+    },
+    "policy_009.json": {
+      "id": "009",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "GoDaddy IAM Key Exposure",
+      "notes": "Demonstrates GoDaddy IAM Key Exposure misconfiguration pattern."
+    },
+    "policy_010.json": {
+      "id": "010",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "WWE Fan Database S3 Misconfiguration",
+      "notes": "Demonstrates WWE Fan Database S3 Misconfiguration misconfiguration pattern."
+    },
+    "policy_011.json": {
+      "id": "011",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "Deep Root Analytics S3 Leak (198M voter records)",
+      "notes": "Demonstrates Deep Root Analytics S3 Leak (198M voter records) misconfiguration pattern."
+    },
+    "policy_012.json": {
+      "id": "012",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "Capital One SSRF IAM Exfiltration Pattern",
+      "notes": "Demonstrates Capital One SSRF IAM Exfiltration Pattern misconfiguration pattern."
+    },
+    "policy_013.json": {
+      "id": "013",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "Imperva Cloud DB Backup Dump",
+      "notes": "Demonstrates Imperva Cloud DB Backup Dump misconfiguration pattern."
+    },
+    "policy_014.json": {
+      "id": "014",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "Alteryx / Experian Demographic S3 Bucket",
+      "notes": "Demonstrates Alteryx / Experian Demographic S3 Bucket misconfiguration pattern."
+    },
+    "policy_015.json": {
+      "id": "015",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "Booz Allen Hamilton Unprotected S3 Image Cache",
+      "notes": "Demonstrates Booz Allen Hamilton Unprotected S3 Image Cache misconfiguration pattern."
+    },
+    "policy_016.json": {
+      "id": "016",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "Dow Jones Elasticsearch Snapshot Leak",
+      "notes": "Demonstrates Dow Jones Elasticsearch Snapshot Leak misconfiguration pattern."
+    },
+    "policy_017.json": {
+      "id": "017",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "Accenture Cloud Asset Backup Exposure",
+      "notes": "Demonstrates Accenture Cloud Asset Backup Exposure misconfiguration pattern."
+    },
+    "policy_018.json": {
+      "id": "018",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "FedEx Customer Record Archive",
+      "notes": "Demonstrates FedEx Customer Record Archive misconfiguration pattern."
+    },
+    "policy_019.json": {
+      "id": "019",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "GoDaddy IAM Key Exposure",
+      "notes": "Demonstrates GoDaddy IAM Key Exposure misconfiguration pattern."
+    },
+    "policy_020.json": {
+      "id": "020",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3"
+      ],
+      "reference": "WWE Fan Database S3 Misconfiguration",
+      "notes": "Demonstrates WWE Fan Database S3 Misconfiguration misconfiguration pattern."
+    },
+    "policy_021.json": {
+      "id": "021",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Deep Root Analytics S3 Leak (198M voter records)",
+      "notes": "Demonstrates Deep Root Analytics S3 Leak (198M voter records) misconfiguration pattern."
+    },
+    "policy_022.json": {
+      "id": "022",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Capital One SSRF IAM Exfiltration Pattern",
+      "notes": "Demonstrates Capital One SSRF IAM Exfiltration Pattern misconfiguration pattern."
+    },
+    "policy_023.json": {
+      "id": "023",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Imperva Cloud DB Backup Dump",
+      "notes": "Demonstrates Imperva Cloud DB Backup Dump misconfiguration pattern."
+    },
+    "policy_024.json": {
+      "id": "024",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Alteryx / Experian Demographic S3 Bucket",
+      "notes": "Demonstrates Alteryx / Experian Demographic S3 Bucket misconfiguration pattern."
+    },
+    "policy_025.json": {
+      "id": "025",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Booz Allen Hamilton Unprotected S3 Image Cache",
+      "notes": "Demonstrates Booz Allen Hamilton Unprotected S3 Image Cache misconfiguration pattern."
+    },
+    "policy_026.json": {
+      "id": "026",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Dow Jones Elasticsearch Snapshot Leak",
+      "notes": "Demonstrates Dow Jones Elasticsearch Snapshot Leak misconfiguration pattern."
+    },
+    "policy_027.json": {
+      "id": "027",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "Accenture Cloud Asset Backup Exposure",
+      "notes": "Demonstrates Accenture Cloud Asset Backup Exposure misconfiguration pattern."
+    },
+    "policy_028.json": {
+      "id": "028",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "FedEx Customer Record Archive",
+      "notes": "Demonstrates FedEx Customer Record Archive misconfiguration pattern."
+    },
+    "policy_029.json": {
+      "id": "029",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "GoDaddy IAM Key Exposure",
+      "notes": "Demonstrates GoDaddy IAM Key Exposure misconfiguration pattern."
+    },
+    "policy_030.json": {
+      "id": "030",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "WWE Fan Database S3 Misconfiguration",
+      "notes": "Demonstrates WWE Fan Database S3 Misconfiguration misconfiguration pattern."
+    },
+    "policy_031.json": {
+      "id": "031",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "Deep Root Analytics S3 Leak (198M voter records)",
+      "notes": "Demonstrates Deep Root Analytics S3 Leak (198M voter records) misconfiguration pattern."
+    },
+    "policy_032.json": {
+      "id": "032",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "Capital One SSRF IAM Exfiltration Pattern",
+      "notes": "Demonstrates Capital One SSRF IAM Exfiltration Pattern misconfiguration pattern."
+    },
+    "policy_033.json": {
+      "id": "033",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "Imperva Cloud DB Backup Dump",
+      "notes": "Demonstrates Imperva Cloud DB Backup Dump misconfiguration pattern."
+    },
+    "policy_034.json": {
+      "id": "034",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "Alteryx / Experian Demographic S3 Bucket",
+      "notes": "Demonstrates Alteryx / Experian Demographic S3 Bucket misconfiguration pattern."
+    },
+    "policy_035.json": {
+      "id": "035",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "Booz Allen Hamilton Unprotected S3 Image Cache",
+      "notes": "Demonstrates Booz Allen Hamilton Unprotected S3 Image Cache misconfiguration pattern."
+    },
+    "policy_036.json": {
+      "id": "036",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "Dow Jones Elasticsearch Snapshot Leak",
+      "notes": "Demonstrates Dow Jones Elasticsearch Snapshot Leak misconfiguration pattern."
+    },
+    "policy_037.json": {
+      "id": "037",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "Accenture Cloud Asset Backup Exposure",
+      "notes": "Demonstrates Accenture Cloud Asset Backup Exposure misconfiguration pattern."
+    },
+    "policy_038.json": {
+      "id": "038",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "FedEx Customer Record Archive",
+      "notes": "Demonstrates FedEx Customer Record Archive misconfiguration pattern."
+    },
+    "policy_039.json": {
+      "id": "039",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "GoDaddy IAM Key Exposure",
+      "notes": "Demonstrates GoDaddy IAM Key Exposure misconfiguration pattern."
+    },
+    "policy_040.json": {
+      "id": "040",
+      "category": "clear_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4"
+      ],
+      "reference": "WWE Fan Database S3 Misconfiguration",
+      "notes": "Demonstrates WWE Fan Database S3 Misconfiguration misconfiguration pattern."
+    },
+    "policy_041.json": {
+      "id": "041",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_042.json": {
+      "id": "042",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_043.json": {
+      "id": "043",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_044.json": {
+      "id": "044",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_045.json": {
+      "id": "045",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_046.json": {
+      "id": "046",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_047.json": {
+      "id": "047",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_048.json": {
+      "id": "048",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_049.json": {
+      "id": "049",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_050.json": {
+      "id": "050",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Principal is '*' but restricted to corporate IP CIDR via aws:SourceIp."
+    },
+    "policy_051.json": {
+      "id": "051",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_052.json": {
+      "id": "052",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_053.json": {
+      "id": "053",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_054.json": {
+      "id": "054",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_055.json": {
+      "id": "055",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_056.json": {
+      "id": "056",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_057.json": {
+      "id": "057",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_058.json": {
+      "id": "058",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_059.json": {
+      "id": "059",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_060.json": {
+      "id": "060",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to internal VPC Endpoint via aws:sourceVpce condition."
+    },
+    "policy_061.json": {
+      "id": "061",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_062.json": {
+      "id": "062",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_063.json": {
+      "id": "063",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_064.json": {
+      "id": "064",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_065.json": {
+      "id": "065",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_066.json": {
+      "id": "066",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_067.json": {
+      "id": "067",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_068.json": {
+      "id": "068",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_069.json": {
+      "id": "069",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_070.json": {
+      "id": "070",
+      "category": "tricky_safe",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "Condition-Restricted Safe Configuration",
+      "notes": "Restricted to corporate AWS Organization members via aws:PrincipalOrgID."
+    },
+    "policy_071.json": {
+      "id": "071",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_072.json": {
+      "id": "072",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_073.json": {
+      "id": "073",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_074.json": {
+      "id": "074",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_075.json": {
+      "id": "075",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_076.json": {
+      "id": "076",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_077.json": {
+      "id": "077",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_078.json": {
+      "id": "078",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_079.json": {
+      "id": "079",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_080.json": {
+      "id": "080",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Uses partial wildcard action s3:Get* to exfiltrate all object types and ACLs."
+    },
+    "policy_081.json": {
+      "id": "081",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_082.json": {
+      "id": "082",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_083.json": {
+      "id": "083",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_084.json": {
+      "id": "084",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_085.json": {
+      "id": "085",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_086.json": {
+      "id": "086",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_087.json": {
+      "id": "087",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_088.json": {
+      "id": "088",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_089.json": {
+      "id": "089",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_090.json": {
+      "id": "090",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Inverted TLS condition bug denies HTTPS instead of HTTP."
+    },
+    "policy_091.json": {
+      "id": "091",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_092.json": {
+      "id": "092",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_093.json": {
+      "id": "093",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_094.json": {
+      "id": "094",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_095.json": {
+      "id": "095",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_096.json": {
+      "id": "096",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_097.json": {
+      "id": "097",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_098.json": {
+      "id": "098",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_099.json": {
+      "id": "099",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_100.json": {
+      "id": "100",
+      "category": "tricky_vulnerable",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_2"
+      ],
+      "reference": "Subtle Policy Logic Flaw / Bypass",
+      "notes": "Has valid TLS policy but misses default SSE-KMS at-rest encryption."
+    },
+    "policy_101.json": {
+      "id": "101",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_102.json": {
+      "id": "102",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_103.json": {
+      "id": "103",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_104.json": {
+      "id": "104",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_105.json": {
+      "id": "105",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_106.json": {
+      "id": "106",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_107.json": {
+      "id": "107",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_108.json": {
+      "id": "108",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_109.json": {
+      "id": "109",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_110.json": {
+      "id": "110",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_111.json": {
+      "id": "111",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_112.json": {
+      "id": "112",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_113.json": {
+      "id": "113",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_114.json": {
+      "id": "114",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_115.json": {
+      "id": "115",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_116.json": {
+      "id": "116",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_117.json": {
+      "id": "117",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_118.json": {
+      "id": "118",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_119.json": {
+      "id": "119",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    },
+    "policy_120.json": {
+      "id": "120",
+      "category": "cis_hardened",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CIS AWS Foundations Level 2 Benchmark",
+      "notes": "Full production hardening with KMS CMK, TLS Deny, logging, and Object Lock."
+    }
+  }
+}

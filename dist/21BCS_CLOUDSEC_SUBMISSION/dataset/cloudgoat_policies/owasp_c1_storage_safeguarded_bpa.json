@@ -1,0 +1,71 @@
+{
+  "BucketName": "owasp_c1_storage_safeguarded_bpa",
+  "ARN": "arn:aws:s3:::owasp_c1_storage_safeguarded_bpa",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "CloudGoatStatement",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::owasp_c1_storage_safeguarded_bpa",
+          "arn:aws:s3:::owasp_c1_storage_safeguarded_bpa/*"
+        ],
+        "Condition": {
+          "IpAddress": {
+            "aws:SourceIp": [
+              "192.0.2.0/24"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "EnforceTLSRequestsOnly",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:*",
+        "Resource": [
+          "arn:aws:s3:::owasp_c1_storage_safeguarded_bpa",
+          "arn:aws:s3:::owasp_c1_storage_safeguarded_bpa/*"
+        ],
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": true,
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "aws:kms"
+        }
+      }
+    ]
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": {
+      "TargetBucket": "central-compliance-logs",
+      "TargetPrefix": "logs/owasp_c1_storage_safeguarded_bpa/"
+    }
+  },
+  "VersioningConfiguration": {
+    "Status": "Enabled"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Enabled"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "BucketName": "secure-edge-case-068",
+  "ARN": "arn:aws:s3:::secure-edge-case-068",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "AllowOnlyAwsOrgMembers",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject",
+          "s3:PutObject"
+        ],
+        "Resource": "arn:aws:s3:::secure-edge-case-068/*",
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalOrgID": "o-corpenterprise99"
+          }
+        }
+      },
+      {
+        "Sid": "EnforceTLS",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:*",
+        "Resource": "arn:aws:s3:::secure-edge-case-068/*",
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": true,
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "aws:kms"
+        }
+      }
+    ]
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": {
+      "TargetBucket": "audit-logs-compliance-us-east-1",
+      "TargetPrefix": "access-logs/secure-edge-case-068/"
+    }
+  },
+  "VersioningConfiguration": {
+    "Status": "Enabled"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Enabled"
+  }
+}

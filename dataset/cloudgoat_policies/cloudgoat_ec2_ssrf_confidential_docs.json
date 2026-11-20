@@ -1,0 +1,40 @@
+{
+  "BucketName": "cloudgoat_ec2_ssrf_confidential_docs",
+  "ARN": "arn:aws:s3:::cloudgoat_ec2_ssrf_confidential_docs",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "CloudGoatStatement",
+        "Effect": "Allow",
+        "Principal": "arn:aws:iam::333344445555:role/cg-ec2-ssrf-role",
+        "Action": [
+          "s3:Get*"
+        ],
+        "Resource": [
+          "arn:aws:s3:::cloudgoat_ec2_ssrf_confidential_docs",
+          "arn:aws:s3:::cloudgoat_ec2_ssrf_confidential_docs/*"
+        ]
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": false,
+    "Rules": []
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": null
+  },
+  "VersioningConfiguration": {
+    "Status": "Suspended"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Disabled"
+  }
+}

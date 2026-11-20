@@ -1,0 +1,71 @@
+{
+  "BucketName": "flaws2_target2_vpce_secured",
+  "ARN": "arn:aws:s3:::flaws2_target2_vpce_secured",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws2_target2_vpce_secured",
+          "arn:aws:s3:::flaws2_target2_vpce_secured/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:sourceVpc": [
+              "vpc-flaws2prod"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "EnforceTLSRequestsOnly",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:*",
+        "Resource": [
+          "arn:aws:s3:::flaws2_target2_vpce_secured",
+          "arn:aws:s3:::flaws2_target2_vpce_secured/*"
+        ],
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": true,
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "aws:kms"
+        }
+      }
+    ]
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": {
+      "TargetBucket": "central-audit-flaws",
+      "TargetPrefix": "logs/flaws2_target2_vpce_secured/"
+    }
+  },
+  "VersioningConfiguration": {
+    "Status": "Enabled"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Enabled"
+  }
+}

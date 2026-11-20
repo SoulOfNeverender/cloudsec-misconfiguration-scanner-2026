@@ -1,0 +1,71 @@
+{
+  "BucketName": "flaws_level5_ssrf_mitigated_imdsv2",
+  "ARN": "arn:aws:s3:::flaws_level5_ssrf_mitigated_imdsv2",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws_level5_ssrf_mitigated_imdsv2",
+          "arn:aws:s3:::flaws_level5_ssrf_mitigated_imdsv2/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalOrgID": [
+              "o-flawsorg123"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "EnforceTLSRequestsOnly",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:*",
+        "Resource": [
+          "arn:aws:s3:::flaws_level5_ssrf_mitigated_imdsv2",
+          "arn:aws:s3:::flaws_level5_ssrf_mitigated_imdsv2/*"
+        ],
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": true,
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "aws:kms"
+        }
+      }
+    ]
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": {
+      "TargetBucket": "central-audit-flaws",
+      "TargetPrefix": "logs/flaws_level5_ssrf_mitigated_imdsv2/"
+    }
+  },
+  "VersioningConfiguration": {
+    "Status": "Enabled"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Enabled"
+  }
+}

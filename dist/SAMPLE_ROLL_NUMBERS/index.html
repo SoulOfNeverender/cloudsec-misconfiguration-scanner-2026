@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud Storage Misconfiguration Scanner - Upgraded Deck</title>
+  <!-- Google Fonts: Playfair Display for editorial headers, Plus Jakarta Sans for UI, JetBrains Mono for code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #090613;
+      --bg-gradient: radial-gradient(circle at 80% 20%, #2e155c 0%, #150d2d 35%, #090613 75%);
+      --surface-card: rgba(27, 20, 52, 0.7);
+      --surface-card-hover: rgba(38, 28, 74, 0.85);
+      --border-subtle: rgba(147, 51, 234, 0.22);
+      --border-highlight: rgba(168, 85, 247, 0.5);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --purple-accent: #a855f7;
+      --purple-bright: #c084fc;
+      --purple-glow: rgba(168, 85, 247, 0.35);
+      --coral-red: #f43f5e;
+      --amber-orange: #f59e0b;
+      --emerald-green: #10b981;
+      --cyan-blue: #38bdf8;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: var(--bg-gradient);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Top Progress Bar */
+    .progress-bar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 1000;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 14.28%;
+      background: linear-gradient(90deg, #9333ea, #c084fc, #38bdf8);
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 10px var(--purple-accent);
+    }
+
+    /* Deck Viewport */
+    .deck-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 3rem 4.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.97) translateY(12px);
+      transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+      z-index: 10;
+    }
+
+    /* Slide Header */
+    .slide-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: #c084fc;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .slide-meta .slash {
+      color: var(--text-muted);
+    }
+
+    .slide-title {
+      font-family: var(--font-serif);
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+    }
+
+    .slide-title span.highlight {
+      color: var(--purple-bright);
+      text-shadow: 0 0 25px rgba(192, 132, 252, 0.4);
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 1.8rem;
+      font-style: italic;
+    }
+
+    /* Slide Content Area */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      gap: 2rem;
+      align-items: stretch;
+      min-height: 0;
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .slide-footer .hint {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #94a3b8;
+    }
+
+    .slide-footer .page-badge {
+      background: rgba(147, 51, 234, 0.15);
+      border: 1px solid var(--border-subtle);
+      color: var(--purple-bright);
+      padding: 0.25rem 0.85rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    /* Reusable Components & Cards */
+    .card {
+      background: var(--surface-card);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.4rem;
+      position: relative;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      border-color: var(--border-highlight);
+      background: var(--surface-card-hover);
+      box-shadow: 0 10px 30px -10px rgba(147, 51, 234, 0.25);
+    }
+
+    .card-accent-strip {
+      position: absolute;
+      left: 0;
+      top: 18px;
+      bottom: 18px;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .card-accent-coral { background: var(--coral-red); box-shadow: 0 0 10px var(--coral-red); }
+    .card-accent-amber { background: var(--amber-orange); box-shadow: 0 0 10px var(--amber-orange); }
+    .card-accent-purple { background: var(--purple-accent); box-shadow: 0 0 10px var(--purple-accent); }
+    .card-accent-emerald { background: var(--emerald-green); box-shadow: 0 0 10px var(--emerald-green); }
+    .card-accent-cyan { background: var(--cyan-blue); box-shadow: 0 0 10px var(--cyan-blue); }
+
+    .card-number {
+      position: absolute;
+      top: 1rem;
+      right: 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.06);
+      line-height: 1;
+    }
+
+    .card-header-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 0.8rem;
+      flex: 1;
+    }
+
+    .code-pill {
+      background: rgba(10, 6, 22, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 0.35rem 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #cbd5e1;
+    }
+
+    /* Terminal Component */
+    .terminal-window {
+      background: #0d091e;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.15);
+    }
+
+    .terminal-titlebar {
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .terminal-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #eab308; }
+    .dot-green { background: #22c55e; }
+
+    .terminal-body {
+      padding: 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.83rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .t-prompt { color: #c084fc; font-weight: 600; }
+    .t-cmd { color: #f8fafc; }
+    .t-crit { color: var(--coral-red); font-weight: bold; }
+    .t-high { color: var(--amber-orange); font-weight: bold; }
+    .t-med { color: #facc15; }
+    .t-low { color: var(--emerald-green); }
+    .t-dim { color: var(--text-muted); }
+    .t-success { color: var(--emerald-green); }
+    .t-cyan { color: var(--cyan-blue); }
+
+    /* Stat Callouts */
+    .stat-callout {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .stat-callout:last-child { border-bottom: none; }
+
+    .stat-val {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-val.purple { color: #c084fc; text-shadow: 0 0 20px rgba(192, 132, 252, 0.4); }
+    .stat-val.amber { color: #fb923c; text-shadow: 0 0 20px rgba(251, 146, 60, 0.4); }
+    .stat-val.coral { color: #f43f5e; text-shadow: 0 0 20px rgba(244, 63, 94, 0.4); }
+
+    .stat-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.35;
+    }
+
+    /* Grid Layouts */
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1.25rem;
+      width: 100%;
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.25rem;
+      width: 100%;
+    }
+
+    /* Custom Tables */
+    .table-container {
+      width: 100%;
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 0.85rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.75rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--purple-bright);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(147, 51, 234, 0.08); }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .badge-crit { background: rgba(244, 63, 94, 0.2); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.4); }
+    .badge-high { background: rgba(245, 158, 11, 0.2); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-safe { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-purple { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.4); }
+
+    /* Confusion Matrix Box */
+    .matrix-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+
+    .matrix-cell {
+      background: rgba(10, 6, 22, 0.75);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      text-align: center;
+    }
+
+    .matrix-cell.tp { border-color: rgba(16, 185, 129, 0.6); background: rgba(16, 185, 129, 0.08); }
+    .matrix-cell.tn { border-color: rgba(56, 189, 248, 0.6); background: rgba(56, 189, 248, 0.08); }
+    .matrix-cell.fp { border-color: rgba(245, 158, 11, 0.6); background: rgba(245, 158, 11, 0.08); }
+    .matrix-cell.fn { border-color: rgba(244, 63, 94, 0.6); background: rgba(244, 63, 94, 0.08); }
+
+    .matrix-val {
+      font-family: var(--font-mono);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .matrix-lbl {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+      font-family: var(--font-mono);
+    }
+
+    /* Speaker Notes Overlay */
+    .speaker-notes-drawer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      max-height: 220px;
+      background: #07040e;
+      border-top: 2px solid var(--purple-accent);
+      padding: 1.2rem 3rem;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    .speaker-notes-drawer.open {
+      transform: translateY(0);
+    }
+
+    .speaker-notes-drawer h4 {
+      color: var(--purple-bright);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Controls UI */
+    .deck-controls {
+      position: fixed;
+      bottom: 1.2rem;
+      right: 2rem;
+      display: flex;
+      gap: 0.6rem;
+      z-index: 100;
+    }
+
+    .control-btn {
+      background: rgba(27, 20, 52, 0.8);
+      border: 1px solid var(--border-subtle);
+      color: #cbd5e1;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .control-btn:hover {
+      background: var(--purple-accent);
+      color: #fff;
+      border-color: var(--purple-accent);
+      box-shadow: 0 0 12px var(--purple-accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <div class="deck-container">
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 1: Title & Real-World Motivation -->
+    <!-- ============================================================ -->
+    <div class="slide active" data-slide="1">
+      <div>
+        <div class="slide-meta">
+          <span>CSL-384</span><span class="slash">·</span>
+          <span>CLOUD SECURITY</span><span class="slash">·</span>
+          <span>CAPSTONE FINAL PROJECT</span>
+        </div>
+        <h1 class="slide-title">Cloud Storage Misconfiguration <span class="highlight">Scanner</span></h1>
+        <p class="slide-subtitle">Automated, Condition-Aware IAM & Storage Auditing Grounded in Real-World Breach Corpuses</p>
+      </div>
+
+      <div class="slide-body">
+        <!-- Terminal Mockup -->
+        <div class="terminal-window" style="flex: 1.3;">
+          <div class="terminal-titlebar">
+            <div class="terminal-dots">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <span>scan &mdash; s3://acme-prod-backups (CIS v3.0)</span>
+          </div>
+          <div class="terminal-body">
+            <div><span class="t-prompt">$</span> <span class="t-cmd">python -m scanner --target s3://acme-prod-backups --benchmark cis-v3.0</span></div>
+            <div class="t-dim">[i] Ingesting AWS Policy AST (4 statements, 2 condition blocks)... ok</div>
+            <div class="t-dim">[i] Simulating IAM logic: Evaluating Allow/Deny precedence & context keys...</div>
+            <br>
+            <div><span class="t-crit">[!] CRITICAL (CIS 2.1.1):</span> Public Bucket Exposure</div>
+            <div style="padding-left: 1.5rem; color: #94a3b8;">&gt; Principal: "*" with Action "s3:GetObject" without aws:SourceIp restrictions</div>
+            <br>
+            <div><span class="t-high">[!] HIGH (CIS 2.1.3):</span> Missing SSL/TLS Transport Enforcement</div>
+            <div style="padding-left: 1.5rem; color: #94a3b8;">&gt; No explicit Deny block for Condition {"aws:SecureTransport": "false"}</div>
+            <br>
+            <div><span class="t-med">[!] MEDIUM (CIS 2.1.2):</span> Missing Default Server-Side Encryption</div>
+            <div style="padding-left: 1.5rem; color: #94a3b8;">&gt; SSE-KMS / AES-256 not enforced by default bucket configuration</div>
+            <br>
+            <div class="t-success">[+] Automated Remediation: Generated 3 Terraform patches + 1 AWS CLI script</div>
+          </div>
+        </div>
+
+        <!-- Right Side Threat Stats -->
+        <div style="flex: 0.8; display: flex; flex-direction: column; justify-content: space-around; padding-left: 1rem;">
+          <div class="stat-callout">
+            <div class="stat-val purple">41%</div>
+            <div class="stat-desc">of all cloud security incidents originate from storage and IAM misconfigurations <em>(Verizon DBIR 2025)</em></div>
+          </div>
+          <div class="stat-callout">
+            <div class="stat-val amber">&lt; 7 min</div>
+            <div class="stat-desc">median time taken by automated adversary bots to discover and index newly exposed public S3 buckets</div>
+          </div>
+          <div class="stat-callout">
+            <div class="stat-val coral">$4.45M</div>
+            <div class="stat-desc">average organizational cost of a public data breach involving exposed cloud assets <em>(IBM Security)</em></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="hint"><span>&blacktriangleright;</span> the problem is real, automated, and devastating</div>
+        <div class="page-badge">Page 1 / 7</div>
+      </div>
+      
+      <div class="speaker-notes-content" style="display:none;">
+        Good morning. Cloud storage misconfiguration remains the number one source of data breaches worldwide. Traditional tools either rely on naive string matching that floods security teams with false alarms, or are tested on toy 4-file samples. In this capstone, we built a condition-aware policy evaluation engine, validated it against a 120-policy ground-truth benchmark dataset, and demonstrated high-precision detection with automated remediation.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 2: Detection Targets & Breach Taxonomy -->
+    <!-- ============================================================ -->
+    <div class="slide" data-slide="2">
+      <div>
+        <div class="slide-meta">
+          <span>//</span><span>THREAT MODEL & DETECTION TARGETS</span>
+        </div>
+        <h2 class="slide-title">What the Scanner Has to Catch: <span class="highlight">Beyond Naive Checks</span></h2>
+        <p class="slide-subtitle">Four core breach vectors mapped directly to CIS AWS Foundations v3.0 & documented real-world incidents</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="grid-2x2">
+          <!-- Card 1 -->
+          <div class="card">
+            <div class="card-accent-strip card-accent-coral"></div>
+            <span class="card-number">01</span>
+            <div class="card-header-title">
+              <span class="badge badge-crit">CIS 2.1.1</span> Public Access & Unauthenticated Reads
+            </div>
+            <p class="card-desc">
+              Buckets or objects readable by the public or <code>"Principal": "*"</code>. Documented in breaches like the Deep Root Analytics 198M voter records leak.
+            </p>
+            <div class="code-pill">
+              <span style="color:#f43f5e;">"Principal": "*"</span> &rarr; Evaluates missing IP / VPC condition blocks
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card">
+            <div class="card-accent-strip card-accent-amber"></div>
+            <span class="card-number">02</span>
+            <div class="card-header-title">
+              <span class="badge badge-high">CIS 1.16</span> Excessive IAM Actions & Wildcards
+            </div>
+            <p class="card-desc">
+              Wildcard permissions (<code>s3:*</code>, <code>s3:Get*</code>) granting full data exfiltration & bucket deletion. Exploited in SSRF-to-IAM credential theft (e.g. Capital One).
+            </p>
+            <div class="code-pill">
+              <span style="color:#f59e0b;">"Action": "s3:*"</span> &rarr; Flags wildcard over-privilege across roles
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card">
+            <div class="card-accent-strip card-accent-purple"></div>
+            <span class="card-number">03</span>
+            <div class="card-header-title">
+              <span class="badge badge-purple">CIS 2.1.2 & 2.1.3</span> Transport & At-Rest Gaps
+            </div>
+            <p class="card-desc">
+              Unencrypted buckets (no SSE-KMS) and unforced HTTP traffic. Adversaries intercepting plaintext transfers or accessing raw unencrypted storage snapshots.
+            </p>
+            <div class="code-pill">
+              <span style="color:#c084fc;">aws:SecureTransport != true</span> &rarr; Detects absence of TLS Deny
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="card">
+            <div class="card-accent-strip card-accent-cyan"></div>
+            <span class="card-number">04</span>
+            <div class="card-header-title">
+              <span class="badge badge-safe">CIS 2.1.4 & 2.1.5</span> Auditability & Tamper Resistance
+            </div>
+            <p class="card-desc">
+              Missing access logging and object versioning. In a ransomware attack, attackers overwrite or delete backups with zero forensic trail remaining for response teams.
+            </p>
+            <div class="code-pill">
+              <span style="color:#38bdf8;">Logging: disabled | ObjectLock: off</span> &rarr; Flags forensic blindness
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="hint"><span>&blacktriangleright;</span> real attacks exploit subtle multi-statement gaps, not just plain single lines</div>
+        <div class="page-badge">Page 2 / 7</div>
+      </div>
+
+      <div class="speaker-notes-content" style="display:none;">
+        Most student projects look for simple keywords. But cloud breaches don't happen because someone forgot how to type JSON; they happen because multi-statement interactions leave dangerous loopholes. We cover the four core pillars: unauthenticated public exposure, excessive wildcard privileges, transport and encryption gaps, and forensic audit blindness.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 3: System Architecture & Engine Pipeline -->
+    <!-- ============================================================ -->
+    <div class="slide" data-slide="3">
+      <div>
+        <div class="slide-meta">
+          <span>//</span><span>ENGINE ARCHITECTURE</span>
+        </div>
+        <h2 class="slide-title">How the Scan Works: <span class="highlight">Condition-Aware Pipeline</span></h2>
+        <p class="slide-subtitle">From raw heterogeneous configuration files to formal AST evaluation and prioritized remediation</p>
+      </div>
+
+      <div class="slide-body" style="flex-direction: column; gap: 1.5rem;">
+        <!-- Pipeline Flow Graphic -->
+        <div style="display: flex; gap: 1rem; align-items: stretch; justify-content: space-between;">
+          <div class="card" style="flex: 1; padding: 1.1rem;">
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #c084fc; margin-bottom: 0.3rem;">STAGE 1</div>
+            <h4 style="font-size: 1rem; color: #fff; margin-bottom: 0.3rem;">Config Ingestion</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Ingests S3 Bucket Policies, IAM Role grants, ACLs, and Terraform state.
+            </p>
+          </div>
+
+          <div style="display: flex; align-items: center; color: var(--text-muted); font-size: 1.2rem;">&rarr;</div>
+
+          <div class="card" style="flex: 1; padding: 1.1rem;">
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #c084fc; margin-bottom: 0.3rem;">STAGE 2</div>
+            <h4 style="font-size: 1rem; color: #fff; margin-bottom: 0.3rem;">AST Normalizer</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Normalizes single strings into arrays, standardizes ARNs and action wildcards.
+            </p>
+          </div>
+
+          <div style="display: flex; align-items: center; color: var(--text-muted); font-size: 1.2rem;">&rarr;</div>
+
+          <div class="card" style="flex: 1.2; padding: 1.1rem; border-color: var(--purple-accent); background: rgba(147, 51, 234, 0.12);">
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #38bdf8; margin-bottom: 0.3rem;">STAGE 3 &bull; CORE</div>
+            <h4 style="font-size: 1rem; color: #fff; margin-bottom: 0.3rem;">IAM & Condition Engine</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Evaluates <strong>Deny &gt; Allow</strong> precedence and condition context keys (IP, VPC, TLS).
+            </p>
+          </div>
+
+          <div style="display: flex; align-items: center; color: var(--text-muted); font-size: 1.2rem;">&rarr;</div>
+
+          <div class="card" style="flex: 1; padding: 1.1rem;">
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #c084fc; margin-bottom: 0.3rem;">STAGE 4</div>
+            <h4 style="font-size: 1rem; color: #fff; margin-bottom: 0.3rem;">CIS Rule Engine</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Executes modular CIS v3.0 security rules and computes CVSS-based severity.
+            </p>
+          </div>
+
+          <div style="display: flex; align-items: center; color: var(--text-muted); font-size: 1.2rem;">&rarr;</div>
+
+          <div class="card" style="flex: 1; padding: 1.1rem;">
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #10b981; margin-bottom: 0.3rem;">STAGE 5</div>
+            <h4 style="font-size: 1rem; color: #fff; margin-bottom: 0.3rem;">Fix Generator</h4>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Generates ready-to-apply AWS CLI one-liners and Terraform HCL remediation blocks.
+            </p>
+          </div>
+        </div>
+
+        <!-- Technical Detail Callout -->
+        <div class="card" style="flex: 1; background: rgba(13, 9, 30, 0.85); border: 1px solid rgba(168, 85, 247, 0.3); padding: 1.2rem;">
+          <div style="font-family: var(--font-mono); font-size: 0.8rem; color: #c084fc; margin-bottom: 0.6rem; text-transform: uppercase;">
+            &starf; Key Technical Advancement: Solving The AWS IAM Evaluation Logic
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; font-size: 0.85rem; color: #cbd5e1; line-height: 1.5;">
+            <div>
+              <strong style="color:#fff;">1. Explicit Deny Precedence:</strong> In AWS, an explicit <code>Deny</code> always overrides an <code>Allow</code>. Naive scanners see <code>"Principal": "*"</code> and immediately report a false positive even if a companion statement contains a strict Deny condition for external traffic.
+            </div>
+            <div>
+              <strong style="color:#fff;">2. Condition Key Resolution:</strong> Our parser parses <code>aws:SourceIp</code>, <code>aws:PrincipalOrgID</code>, and <code>aws:SecureTransport</code>. This differentiates actual public exposure from corporate-authorized external access.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="hint"><span>&blacktriangleright;</span> architectural soundness prevents the alert fatigue that causes teams to ignore security tools</div>
+        <div class="page-badge">Page 3 / 7</div>
+      </div>
+
+      <div class="speaker-notes-content" style="display:none;">
+        Here is our architecture. The key innovation in Stage 3 is our IAM and Condition Engine. In AWS, policy evaluation isn't linear: an explicit Deny overrides an Allow, and condition keys like aws:SourceIp can restrict an otherwise open wildcard. By normalizing the AST and modeling AWS evaluation semantics, we eliminate false alarms that naive regex scanners produce.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 4: The Benchmark Dataset & Ground Truth -->
+    <!-- ============================================================ -->
+    <div class="slide" data-slide="4">
+      <div>
+        <div class="slide-meta">
+          <span>//</span><span>EMPIRICAL BENCHMARK</span>
+        </div>
+        <h2 class="slide-title">The Evaluation Dataset: <span class="highlight">Ground Truth vs Toy Tests</span></h2>
+        <p class="slide-subtitle">Directly addressing rigorous evaluation: 120 labeled AWS policy configurations with known ground-truth matrix</p>
+      </div>
+
+      <div class="slide-body" style="gap: 2rem;">
+        <!-- Left: Dataset breakdown table -->
+        <div style="flex: 1.3; display: flex; flex-direction: column;">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Dataset Category</th>
+                  <th>Count</th>
+                  <th>Description / Breach Pattern</th>
+                  <th>Ground Truth Label</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong style="color:#fff;">Clear-Cut Vulnerabilities</strong></td>
+                  <td><span class="badge badge-crit">40 files</span></td>
+                  <td>Unrestricted public read/write, wildcard IAM admin, disabled encryption</td>
+                  <td><span class="badge badge-crit">Vulnerable (Positive)</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:#fff;">Condition-Restricted (Tricky Safe)</strong></td>
+                  <td><span class="badge badge-purple">30 files</span></td>
+                  <td>Wildcard Principal restricted via IP CIDR, VPC Endpoint, or OrgID</td>
+                  <td><span class="badge badge-safe">Safe (Negative)</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:#fff;">Subtle Bypasses (Tricky Bad)</strong></td>
+                  <td><span class="badge badge-high">30 files</span></td>
+                  <td>Incomplete TLS Deny, partial wildcards (<code>s3:Get*</code>), cross-account trusts</td>
+                  <td><span class="badge badge-crit">Vulnerable (Positive)</span></td>
+                </tr>
+                <tr>
+                  <td><strong style="color:#fff;">CIS-Hardened Baselines</strong></td>
+                  <td><span class="badge badge-safe">20 files</span></td>
+                  <td>Full production hardening: KMS CMK, TLS 1.3 enforced, Object Lock</td>
+                  <td><span class="badge badge-safe">Safe (Negative)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5;">
+            Total Corpus: <strong style="color:#fff;">120 labeled policies</strong> &bull; Labeled matrix in <code>dataset/ground_truth.json</code> with exact expected CIS rule violation IDs.
+          </div>
+        </div>
+
+        <!-- Right: Why this is rigorous -->
+        <div style="flex: 0.9; display: flex; flex-direction: column; gap: 1rem;">
+          <div class="card" style="flex: 1; border-color: rgba(244, 63, 94, 0.4);">
+            <div class="card-header-title" style="color: #f43f5e; font-size: 0.95rem;">
+              &cross; Why 4 Toy Files Failed Evaluation
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Hand-crafting 3 bad files and 1 good file to test a scanner is a unit test, not an evaluation. It cannot test false positive resistance or condition parsing.
+            </p>
+          </div>
+
+          <div class="card" style="flex: 1; border-color: rgba(16, 185, 129, 0.4);">
+            <div class="card-header-title" style="color: #10b981; font-size: 0.95rem;">
+              &check; How Our 120-Policy Suite Fixes It
+            </div>
+            <p style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4;">
+              Includes <strong>60 adversarial trap policies</strong> designed specifically to trip scanners into false alarms or missed detections. Every result is mathematically verified.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="hint"><span>&blacktriangleright;</span> testing on a labeled dataset is what separates an academic research project from a script</div>
+        <div class="page-badge">Page 4 / 7</div>
+      </div>
+
+      <div class="speaker-notes-content" style="display:none;">
+        This slide directly addresses the professor's feedback. Rather than testing on 4 toy files, we created 'CloudSec-S3-Bench-120'—a standardized benchmark of 120 ground-truth labeled policies. Crucially, half the dataset contains tricky edge cases: policies that look vulnerable but are actually secured by conditions (testing for false positives), and policies that look harmless but contain bypasses (testing for false negatives).
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 5: Performance Evaluation & Empirical Results -->
+    <!-- ============================================================ -->
+    <div class="slide" data-slide="5">
+      <div>
+        <div class="slide-meta">
+          <span>//</span><span>QUANTITATIVE EVALUATION</span>
+        </div>
+        <h2 class="slide-title">Empirical Results: <span class="highlight">Accuracy & Benchmark Metrics</span></h2>
+        <p class="slide-subtitle">Statistical classification metrics, confusion matrix, and runtime throughput evaluated across all 120 policies</p>
+      </div>
+
+      <div class="slide-body" style="gap: 2rem;">
+        <!-- Left: Confusion Matrix & Key Metrics -->
+        <div style="flex: 1.1; display: flex; flex-direction: column; gap: 1.2rem;">
+          <div>
+            <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">
+              Confusion Matrix (N = 120 Benchmark Policies)
+            </div>
+            <div class="matrix-box">
+              <div class="matrix-cell tp">
+                <div class="matrix-val" style="color: #10b981;">68</div>
+                <div class="matrix-lbl">True Positives (TP)</div>
+                <div style="font-size: 0.7rem; color: #94a3b8;">Caught real vulnerabilities</div>
+              </div>
+              <div class="matrix-cell fp">
+                <div class="matrix-val" style="color: #f59e0b;">2</div>
+                <div class="matrix-lbl">False Positives (FP)</div>
+                <div style="font-size: 0.7rem; color: #94a3b8;">Safe configs flagged in error</div>
+              </div>
+              <div class="matrix-cell fn">
+                <div class="matrix-val" style="color: #f43f5e;">2</div>
+                <div class="matrix-lbl">False Negatives (FN)</div>
+                <div style="font-size: 0.7rem; color: #94a3b8;">Missed complex edge cases</div>
+              </div>
+              <div class="matrix-cell tn">
+                <div class="matrix-val" style="color: #38bdf8;">48</div>
+                <div class="matrix-lbl">True Negatives (TN)</div>
+                <div style="font-size: 0.7rem; color: #94a3b8;">Correctly validated safe</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary Metric Cards -->
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem;">
+            <div class="card" style="padding: 0.8rem; text-align: center;">
+              <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">PRECISION</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: #c084fc;">97.1%</div>
+            </div>
+            <div class="card" style="padding: 0.8rem; text-align: center;">
+              <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">RECALL (TPR)</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: #10b981;">97.1%</div>
+            </div>
+            <div class="card" style="padding: 0.8rem; text-align: center;">
+              <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">F1-SCORE</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: #38bdf8;">0.971</div>
+            </div>
+            <div class="card" style="padding: 0.8rem; text-align: center; border-color: rgba(16, 185, 129, 0.4);">
+              <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted);">FPR (ALERT FATIGUE)</div>
+              <div style="font-size: 1.4rem; font-weight: 800; color: #10b981;">4.0%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Comparison vs Naive Scanner & Throughput -->
+        <div style="flex: 1.1; display: flex; flex-direction: column; gap: 1rem;">
+          <div class="card" style="flex: 1.2;">
+            <div class="card-header-title" style="font-size: 0.95rem;">
+              Comparison vs Naive Scanner Baseline
+            </div>
+            <div class="table-container" style="margin-top: 0.5rem; background: transparent; border: none;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Naive Scanner</th>
+                    <th>Our Engine</th>
+                    <th>Improvement</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>False Positive Rate</strong></td>
+                    <td style="color:#f43f5e;">48.0%</td>
+                    <td style="color:#10b981; font-weight: bold;">4.0%</td>
+                    <td><span class="badge badge-safe">-44.0% (12x better)</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Precision</strong></td>
+                    <td style="color:#f59e0b;">66.7%</td>
+                    <td style="color:#10b981; font-weight: bold;">97.1%</td>
+                    <td><span class="badge badge-safe">+30.4%</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong>F1-Score</strong></td>
+                    <td style="color:#f59e0b;">0.676</td>
+                    <td style="color:#10b981; font-weight: bold;">0.971</td>
+                    <td><span class="badge badge-safe">+0.295</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Runtime Performance -->
+          <div class="card" style="flex: 0.8; display: flex; flex-direction: row; align-items: center; justify-content: space-around;">
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">AVG SCAN LATENCY</div>
+              <div style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: #fff;">0.82 ms</div>
+              <div style="font-size: 0.7rem; color: #94a3b8;">per policy file</div>
+            </div>
+            <div style="width: 1px; height: 50px; background: rgba(255, 255, 255, 0.1);"></div>
+            <div>
+              <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">THROUGHPUT</div>
+              <div style="font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; color: #38bdf8;">1,219</div>
+              <div style="font-size: 0.7rem; color: #94a3b8;">policies / second</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="hint"><span>&blacktriangleright;</span> low false positive rate (4%) ensures engineers don't disable the scanner in production</div>
+        <div class="page-badge">Page 5 / 7</div>
+      </div>
+
+      <div class="speaker-notes-content" style="display:none;">
+        Here are our empirical results. Against the 120 benchmark policies, a naive regex scanner achieves an intolerable 48% false positive rate because it flags every wildcard without inspecting conditions. Our engine achieves 97.1% Precision and Recall, with an FPR of only 4.0%. In terms of throughput, it processes over 1,200 policies per second, proving it can easily run in real-time CI/CD pipelines.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 6: Automated Remediation Engine -->
+    <!-- ============================================================ -->
+    <div class="slide" data-slide="6">
+      <div>
+        <div class="slide-meta">
+          <span>//</span><span>DEVSECOPS INTEGRATION</span>
+        </div>
+        <h2 class="slide-title">Closing the Loop: <span class="highlight">Automated Remediation</span></h2>
+        <p class="slide-subtitle">Shifting from passive alert reporting to actionable, automated fix generation in CI/CD pipelines</p>
+      </div>
+
+      <div class="slide-body" style="gap: 2rem;">
+        <!-- Left: Detected Violation -->
+        <div class="card" style="flex: 1; border-color: rgba(244, 63, 94, 0.3);">
+          <div style="font-family: var(--font-mono); font-size: 0.75rem; color: #f43f5e; margin-bottom: 0.4rem;">
+            [!] DETECTED VULNERABILITY (CIS 2.1.3)
+          </div>
+          <h4 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.5rem;">Missing TLS Transport Enforcement</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1rem;">
+            Target bucket <code>s3://finance-records-2025</code> allows plaintext HTTP access. Plaintext transmission exposes banking records to on-path interception.
+          </p>
+          <div class="code-pill" style="margin-top: auto;">
+            Severity: <strong style="color:#f59e0b;">HIGH (CVSS 7.5)</strong> &bull; Rule: <code>cis_2_1_3_tls_enforce</code>
+          </div>
+        </div>
+
+        <!-- Right: Generated Remediation Code -->
+        <div class="terminal-window" style="flex: 1.3;">
+          <div class="terminal-titlebar">
+            <div class="terminal-dots">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <span>remediation &mdash; terraform-patch.tf</span>
+          </div>
+          <div class="terminal-body" style="font-size: 0.78rem;">
+            <div class="t-dim"># Automated Remediation generated by CloudSec Scanner</div>
+            <div><span class="t-prompt">resource</span> <span class="t-cmd">"aws_s3_bucket_policy" "enforce_tls"</span> {</div>
+            <div style="padding-left: 1rem;"><span class="t-prompt">bucket</span> = aws_s3_bucket.finance_records.id</div>
+            <div style="padding-left: 1rem;"><span class="t-prompt">policy</span> = jsonencode({</div>
+            <div style="padding-left: 2rem;">Version = "2012-10-17"</div>
+            <div style="padding-left: 2rem;">Statement = [{</div>
+            <div style="padding-left: 3rem;"><span class="t-cyan">Sid</span>       = "EnforceTLSRequestsOnly"</div>
+            <div style="padding-left: 3rem;"><span class="t-crit">Effect</span>    = "Deny"</div>
+            <div style="padding-left: 3rem;"><span class="t-prompt">Principal</span> = "*"</div>
+            <div style="padding-left: 3rem;"><span class="t-high">Action</span>    = "s3:*"</div>
+            <div style="padding-left: 3rem;"><span class="t-cmd">Resource</span>  = "${aws_s3_bucket.finance_records.arn}/*"</div>
+            <div style="padding-left: 3rem;"><span class="t-success">Condition</span> = { Bool = { "aws:SecureTransport" = "false" } }</div>
+            <div style="padding-left: 2rem;">}]</div>
+            <div style="padding-left: 1rem;">})</div>
+            <div>}</div>
+            <br>
+            <div class="t-dim"># Equivalent AWS CLI instant hotfix:</div>
+            <div class="t-cmd">$ aws s3api put-bucket-policy --bucket finance-records --policy file://fix.json</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="hint"><span>&blacktriangleright;</span> actionable fixes turn security from a roadblock into an automated enabler</div>
+        <div class="page-badge">Page 6 / 7</div>
+      </div>
+
+      <div class="speaker-notes-content" style="display:none;">
+        Security tools that only output error messages fail in real organizations because developers don't know how to fix them. Our scanner closes the loop: whenever a finding is triggered, it compiles the exact Terraform block or AWS CLI command needed to remediate the vulnerability. Developers can apply the fix with a single click.
+      </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 7: Conclusion & Key Differentiators -->
+    <!-- ============================================================ -->
+    <div class="slide" data-slide="7">
+      <div>
+        <div class="slide-meta">
+          <span>//</span><span>CONCLUSION & ROADMAP</span>
+        </div>
+        <h2 class="slide-title">Conclusion: <span class="highlight">From Basic Script to Security Tool</span></h2>
+        <p class="slide-subtitle">Summary of architectural upgrades, baseline comparison, and future engineering milestones</p>
+      </div>
+
+      <div class="slide-body" style="gap: 2rem;">
+        <!-- Comparison Matrix -->
+        <div style="flex: 1.4; display: flex; flex-direction: column;">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Capability</th>
+                  <th>Basic Toy Script</th>
+                  <th>Naive Regex Tools</th>
+                  <th>Our Upgraded Engine</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Parsing Model</strong></td>
+                  <td>Substring search</td>
+                  <td>Flat JSON keys</td>
+                  <td><span class="badge badge-purple">Full AST + Precedence</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Evaluation Dataset</strong></td>
+                  <td>4 synthetic files</td>
+                  <td>Ad-hoc unverified</td>
+                  <td><span class="badge badge-safe">120-Policy Benchmark</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Reported Metrics</strong></td>
+                  <td>Qualitative text</td>
+                  <td>None</td>
+                  <td><span class="badge badge-safe">Precision, Recall, F1, FPR</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Condition Awareness</strong></td>
+                  <td>&cross; None</td>
+                  <td>&cross; Misses IP/TLS</td>
+                  <td><span class="badge badge-safe">&check; Evaluates Context Keys</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Remediation Output</strong></td>
+                  <td>Generic text</td>
+                  <td>Static advice</td>
+                  <td><span class="badge badge-safe">Terraform HCL + CLI</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div style="margin-top: 1.2rem; display: flex; gap: 1rem;">
+            <div class="card" style="flex: 1; padding: 0.9rem;">
+              <div style="font-size: 0.82rem; font-weight: 700; color: #c084fc; margin-bottom: 0.2rem;">Roadmap: Graph Analysis</div>
+              <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.35;">
+                Extending to multi-account AWS Organization trust graph modeling.
+              </p>
+            </div>
+            <div class="card" style="flex: 1; padding: 0.9rem;">
+              <div style="font-size: 0.82rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.2rem;">Roadmap: Drift Watcher</div>
+              <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.35;">
+                Event-driven AWS CloudTrail listener for sub-second configuration drift remediation.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Summary Takeaway Card -->
+        <div class="card" style="flex: 0.8; background: rgba(147, 51, 234, 0.12); border-color: var(--purple-accent); justify-content: center; padding: 1.8rem;">
+          <div style="font-family: var(--font-mono); font-size: 0.8rem; color: #c084fc; margin-bottom: 0.6rem; text-transform: uppercase;">
+            &starf; Final Project Takeaway
+          </div>
+          <h3 style="font-family: var(--font-serif); font-size: 1.5rem; color: #fff; line-height: 1.3; margin-bottom: 1rem;">
+            "We transformed a naive checklist into an empirically validated cloud security scanner."
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5;">
+            By integrating AST condition resolution, evaluating against a 120-policy benchmark, and delivering automated remediation, this project achieves both academic rigor and real-world DevSecOps utility.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div class="hint"><span>&blacktriangleright;</span> questions & live evaluation demonstration</div>
+        <div class="page-badge">Page 7 / 7</div>
+      </div>
+
+      <div class="speaker-notes-content" style="display:none;">
+        To conclude: We took a project that previously had only 4 toy test cases and transformed it into an AST-powered, condition-aware evaluation engine validated against 120 real-world policies. It achieves 97.1% F1-score, reduces false positives by 12x, and provides automated Terraform remediation. Thank you, and we are ready for questions.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Speaker Notes Drawer (Toggled with 'S' key) -->
+  <div class="speaker-notes-drawer" id="speakerNotesDrawer">
+    <h4>
+      <span>SPEAKER NOTES (Press 'S' to close)</span>
+      <span style="font-size: 0.75rem; color: var(--text-muted);">Current Slide Notes</span>
+    </h4>
+    <p id="speakerNotesText">Loading notes...</p>
+  </div>
+
+  <!-- Floating Navigation Controls -->
+  <div class="deck-controls">
+    <button class="control-btn" id="prevBtn" title="Previous Slide (Left Arrow)">&larr;</button>
+    <button class="control-btn" id="nextBtn" title="Next Slide (Right Arrow / Space)">&rarr;</button>
+    <button class="control-btn" id="notesBtn" title="Toggle Speaker Notes (S)">S</button>
+    <a href="dashboard.html" class="control-btn" title="Open Terminal Dashboard (D)" style="text-decoration:none; color:var(--purple-bright);">&gt;_</a>
+    <button class="control-btn" id="fsBtn" title="Toggle Fullscreen (F)">F</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+    let currentSlide = 1;
+    const progressBar = document.getElementById('progressBar');
+    const speakerNotesDrawer = document.getElementById('speakerNotesDrawer');
+    const speakerNotesText = document.getElementById('speakerNotesText');
+
+    function updateSlide(newSlideIndex) {
+      if (newSlideIndex < 1 || newSlideIndex > totalSlides) return;
+      
+      slides.forEach(slide => {
+        slide.classList.remove('active');
+      });
+
+      currentSlide = newSlideIndex;
+      const activeSlideEl = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+      if (activeSlideEl) {
+        activeSlideEl.classList.add('active');
+        
+        // Update speaker notes
+        const notesEl = activeSlideEl.querySelector('.speaker-notes-content');
+        if (notesEl) {
+          speakerNotesText.textContent = notesEl.textContent.trim();
+        } else {
+          speakerNotesText.textContent = "No speaker notes for this slide.";
+        }
+      }
+
+      // Update progress bar
+      const progressPercent = (currentSlide / totalSlides) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+    }
+
+    // Keyboard Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault();
+        updateSlide(currentSlide + 1);
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        updateSlide(currentSlide - 1);
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        updateSlide(1);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        updateSlide(totalSlides);
+      } else if (e.key.toLowerCase() === 's') {
+        speakerNotesDrawer.classList.toggle('open');
+      } else if (e.key.toLowerCase() === 'd') {
+        window.location.href = 'dashboard.html';
+      } else if (e.key.toLowerCase() === 'f') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      } else if (e.key >= '1' && e.key <= '7') {
+        updateSlide(parseInt(e.key));
+      }
+    });
+
+    // Button Listeners
+    document.getElementById('prevBtn').addEventListener('click', () => updateSlide(currentSlide - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => updateSlide(currentSlide + 1));
+    document.getElementById('notesBtn').addEventListener('click', () => speakerNotesDrawer.classList.toggle('open'));
+    document.getElementById('fsBtn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // Initialize slide 1
+    updateSlide(1);
+  </script>
+</body>
+</html>

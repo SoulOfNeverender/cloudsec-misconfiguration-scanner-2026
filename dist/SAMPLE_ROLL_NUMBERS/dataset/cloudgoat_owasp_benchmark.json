@@ -1,0 +1,312 @@
+{
+  "benchmark_name": "CloudGoat-OWASP-Bench-30",
+  "description": "Standardized benchmark suite derived from Rhino Security Labs CloudGoat scenarios and OWASP Cloud Security Top 10",
+  "total_policies": 30,
+  "policies": {
+    "cloudgoat_breach_s3_imds_exfil.json": {
+      "id": "cloudgoat_breach_s3_imds_exfil",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat: cloud_breach_s3 reverse proxy SSRF extracts cardholder data",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_breach_s3_mitigated.json": {
+      "id": "cloudgoat_breach_s3_mitigated",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat: S3 access gated with VPC Endpoint policy and IMDSv2 token enforcement",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_iam_privesc_wildcard_s3.json": {
+      "id": "cloudgoat_iam_privesc_wildcard_s3",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat: iam_privesc attaches AdministratorAccess with s3:*",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_iam_privesc_bounded_role.json": {
+      "id": "cloudgoat_iam_privesc_bounded_role",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat: IAM permissions boundary restricts role to internal org accounts",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_ec2_ssrf_confidential_docs.json": {
+      "id": "cloudgoat_ec2_ssrf_confidential_docs",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat: ec2_ssrf extracts temporary STS tokens to download confidential documents",
+      "category": "cloudgoat_owasp"
+    },
+    "owasp_c1_insecure_storage_public_get.json": {
+      "id": "owasp_c1_insecure_storage_public_get",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "OWASP Cloud Top 10 (C1): Unrestricted public anonymous read access",
+      "category": "cloudgoat_owasp"
+    },
+    "owasp_c1_insecure_storage_public_put.json": {
+      "id": "owasp_c1_insecure_storage_public_put",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "OWASP Cloud Top 10 (C1): Public write access allowing malicious script injection",
+      "category": "cloudgoat_owasp"
+    },
+    "owasp_c1_storage_safeguarded_bpa.json": {
+      "id": "owasp_c1_storage_safeguarded_bpa",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "OWASP Cloud Top 10 (C1): Storage bucket with Account-level Block Public Access enabled",
+      "category": "cloudgoat_owasp"
+    },
+    "owasp_c2_missing_in_transit_tls.json": {
+      "id": "owasp_c2_missing_in_transit_tls",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_3",
+        "CIS_2_1_2",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "OWASP Cloud Top 10 (C2): Storage bucket allows cleartext HTTP object downloads",
+      "category": "cloudgoat_owasp"
+    },
+    "owasp_c2_enforced_tls_aes256.json": {
+      "id": "owasp_c2_enforced_tls_aes256",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "OWASP Cloud Top 10 (C2): Explicit Deny on aws:SecureTransport=false with default KMS",
+      "category": "cloudgoat_owasp"
+    },
+    "owasp_c3_excessive_wildcard_service_role.json": {
+      "id": "owasp_c3_excessive_wildcard_service_role",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_1_16",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "OWASP Cloud Top 10 (C3): Serverless Lambda role holding administrative s3:* actions",
+      "category": "cloudgoat_owasp"
+    },
+    "owasp_c3_scoped_lambda_execution.json": {
+      "id": "owasp_c3_scoped_lambda_execution",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "OWASP Cloud Top 10 (C3): Scoped least-privilege Lambda role restricted to tenant prefix",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_13.json": {
+      "id": "cloudgoat_owasp_eval_case_13",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 13 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_14.json": {
+      "id": "cloudgoat_owasp_eval_case_14",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 14",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_15.json": {
+      "id": "cloudgoat_owasp_eval_case_15",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 15 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_16.json": {
+      "id": "cloudgoat_owasp_eval_case_16",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 16",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_17.json": {
+      "id": "cloudgoat_owasp_eval_case_17",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 17 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_18.json": {
+      "id": "cloudgoat_owasp_eval_case_18",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 18",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_19.json": {
+      "id": "cloudgoat_owasp_eval_case_19",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 19 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_20.json": {
+      "id": "cloudgoat_owasp_eval_case_20",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 20",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_21.json": {
+      "id": "cloudgoat_owasp_eval_case_21",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 21 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_22.json": {
+      "id": "cloudgoat_owasp_eval_case_22",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 22",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_23.json": {
+      "id": "cloudgoat_owasp_eval_case_23",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 23 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_24.json": {
+      "id": "cloudgoat_owasp_eval_case_24",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 24",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_25.json": {
+      "id": "cloudgoat_owasp_eval_case_25",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 25 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_26.json": {
+      "id": "cloudgoat_owasp_eval_case_26",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 26",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_27.json": {
+      "id": "cloudgoat_owasp_eval_case_27",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 27 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_28.json": {
+      "id": "cloudgoat_owasp_eval_case_28",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 28",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_29.json": {
+      "id": "cloudgoat_owasp_eval_case_29",
+      "is_vulnerable": true,
+      "expected_violations": [
+        "CIS_2_1_1",
+        "CIS_2_1_2",
+        "CIS_2_1_3",
+        "CIS_2_1_4",
+        "CIS_2_1_5"
+      ],
+      "reference": "CloudGoat/OWASP Benchmark: Vulnerability pattern 29 with exposed IAM privileges",
+      "category": "cloudgoat_owasp"
+    },
+    "cloudgoat_owasp_eval_case_30.json": {
+      "id": "cloudgoat_owasp_eval_case_30",
+      "is_vulnerable": false,
+      "expected_violations": [],
+      "reference": "CloudGoat/OWASP Benchmark: CIS Level 2 hardened defense case 30",
+      "category": "cloudgoat_owasp"
+    }
+  }
+}

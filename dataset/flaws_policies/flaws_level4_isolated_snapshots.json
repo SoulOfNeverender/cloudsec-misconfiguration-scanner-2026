@@ -1,0 +1,71 @@
+{
+  "BucketName": "flaws_level4_isolated_snapshots",
+  "ARN": "arn:aws:s3:::flaws_level4_isolated_snapshots",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws_level4_isolated_snapshots",
+          "arn:aws:s3:::flaws_level4_isolated_snapshots/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:sourceVpce": [
+              "vpce-01234567"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "EnforceTLSRequestsOnly",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:*",
+        "Resource": [
+          "arn:aws:s3:::flaws_level4_isolated_snapshots",
+          "arn:aws:s3:::flaws_level4_isolated_snapshots/*"
+        ],
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": true,
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "aws:kms"
+        }
+      }
+    ]
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": {
+      "TargetBucket": "central-audit-flaws",
+      "TargetPrefix": "logs/flaws_level4_isolated_snapshots/"
+    }
+  },
+  "VersioningConfiguration": {
+    "Status": "Enabled"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Enabled"
+  }
+}

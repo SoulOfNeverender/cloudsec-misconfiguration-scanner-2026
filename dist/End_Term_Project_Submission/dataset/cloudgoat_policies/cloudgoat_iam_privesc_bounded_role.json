@@ -1,0 +1,71 @@
+{
+  "BucketName": "cloudgoat_iam_privesc_bounded_role",
+  "ARN": "arn:aws:s3:::cloudgoat_iam_privesc_bounded_role",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "CloudGoatStatement",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::cloudgoat_iam_privesc_bounded_role",
+          "arn:aws:s3:::cloudgoat_iam_privesc_bounded_role/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalOrgID": [
+              "o-cloudgoat999"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "EnforceTLSRequestsOnly",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:*",
+        "Resource": [
+          "arn:aws:s3:::cloudgoat_iam_privesc_bounded_role",
+          "arn:aws:s3:::cloudgoat_iam_privesc_bounded_role/*"
+        ],
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": true,
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "aws:kms"
+        }
+      }
+    ]
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": {
+      "TargetBucket": "central-compliance-logs",
+      "TargetPrefix": "logs/cloudgoat_iam_privesc_bounded_role/"
+    }
+  },
+  "VersioningConfiguration": {
+    "Status": "Enabled"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Enabled"
+  }
+}

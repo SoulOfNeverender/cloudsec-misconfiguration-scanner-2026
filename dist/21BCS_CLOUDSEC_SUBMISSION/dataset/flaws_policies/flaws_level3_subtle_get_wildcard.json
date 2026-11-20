@@ -1,0 +1,40 @@
+{
+  "BucketName": "flaws_level3_subtle_get_wildcard",
+  "ARN": "arn:aws:s3:::flaws_level3_subtle_get_wildcard",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "FlawsStatement",
+        "Effect": "Allow",
+        "Principal": "arn:aws:iam::111122223333:role/deploy",
+        "Action": [
+          "s3:Get*"
+        ],
+        "Resource": [
+          "arn:aws:s3:::flaws_level3_subtle_get_wildcard",
+          "arn:aws:s3:::flaws_level3_subtle_get_wildcard/*"
+        ]
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": false,
+    "Rules": []
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": false,
+    "IgnorePublicAcls": false,
+    "BlockPublicPolicy": false,
+    "RestrictPublicBuckets": false
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": null
+  },
+  "VersioningConfiguration": {
+    "Status": "Suspended"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Disabled"
+  }
+}

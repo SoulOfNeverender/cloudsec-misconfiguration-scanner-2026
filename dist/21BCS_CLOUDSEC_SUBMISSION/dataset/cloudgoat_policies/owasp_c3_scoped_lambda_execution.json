@@ -1,0 +1,71 @@
+{
+  "BucketName": "owasp_c3_scoped_lambda_execution",
+  "ARN": "arn:aws:s3:::owasp_c3_scoped_lambda_execution",
+  "Policy": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "CloudGoatStatement",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": [
+          "s3:GetObject"
+        ],
+        "Resource": [
+          "arn:aws:s3:::owasp_c3_scoped_lambda_execution",
+          "arn:aws:s3:::owasp_c3_scoped_lambda_execution/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "aws:PrincipalAccount": [
+              "333344445555"
+            ]
+          }
+        }
+      },
+      {
+        "Sid": "EnforceTLSRequestsOnly",
+        "Effect": "Deny",
+        "Principal": "*",
+        "Action": "s3:*",
+        "Resource": [
+          "arn:aws:s3:::owasp_c3_scoped_lambda_execution",
+          "arn:aws:s3:::owasp_c3_scoped_lambda_execution/*"
+        ],
+        "Condition": {
+          "Bool": {
+            "aws:SecureTransport": "false"
+          }
+        }
+      }
+    ]
+  },
+  "ServerSideEncryptionConfiguration": {
+    "Enabled": true,
+    "Rules": [
+      {
+        "ApplyServerSideEncryptionByDefault": {
+          "SSEAlgorithm": "aws:kms"
+        }
+      }
+    ]
+  },
+  "PublicAccessBlockConfiguration": {
+    "BlockPublicAcls": true,
+    "IgnorePublicAcls": true,
+    "BlockPublicPolicy": true,
+    "RestrictPublicBuckets": true
+  },
+  "LoggingConfiguration": {
+    "LoggingEnabled": {
+      "TargetBucket": "central-compliance-logs",
+      "TargetPrefix": "logs/owasp_c3_scoped_lambda_execution/"
+    }
+  },
+  "VersioningConfiguration": {
+    "Status": "Enabled"
+  },
+  "ObjectLockConfiguration": {
+    "ObjectLockEnabled": "Enabled"
+  }
+}
